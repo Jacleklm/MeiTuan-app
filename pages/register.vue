@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
 export default {
   layout: "blank",
   data() {
@@ -110,8 +111,80 @@ export default {
     };
   },
   methods: {
-    sendMsg: function() {},
-    register: function() {}
+    sendMsg: function() {
+      const self = this;
+      let namePass;
+      let emailPass;
+      if (self.timerid) {
+        return false;
+      }
+      // 昵称的rules不通过就让 namePass = valid
+      this.$refs["ruleForm"].validateField("name", valid => {
+        namePass = valid;
+      });
+      self.statusMsg = "";
+      if (namePass) {
+        return false;
+      }
+      // 邮箱的rules不通过就让 emailPass = valid
+      this.$refs["ruleForm"].validateField("email", valid => {
+        emailPass = valid;
+      });
+      // 如果两者都通过了（此时namePass和emailPass应该都是空），再发起http请求进行POST
+      if (!namePass && !emailPass) {
+        self.$axios
+          .post("/users/verify", {
+            // encodeURIComponent是对中文进行编码
+            username: encodeURIComponent(self.ruleForm.name),
+            email: self.ruleForm.email
+          })
+          .then(({ status, data }) => {
+            if (status === 200 && data && data.code === 0) {
+              let count = 60;
+              self.statusMsg = `验证码已发送,剩余${count--}秒`;
+              self.timerid = setInterval(function() {
+                self.statusMsg = `验证码已发送,剩余${count--}秒`;
+                if (count === 0) {
+                  clearInterval(self.timerid);
+                }
+              }, 1000);
+            } else {
+              self.statusMsg = data.msg;
+            }
+          });
+      }
+    },
+    register: function() {
+      let self = this;
+      // 当rules都通过，就发起http请求访问signup接口进行登录
+      this.$refs["ruleForm"].validate(valid => {
+        if (valid) {
+          self.$axios
+            .post("/users/signup", {
+              username: window.encodeURIComponent(self.ruleForm.name),
+              // crypto-js是一个用来加密的库，用来对用户密码加密
+              password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
+              email: self.ruleForm.email,
+              code: self.ruleForm.code
+            })
+            .then(({ status, data }) => {
+              if (status === 200) {
+                if (data && data.code === 0) {
+                  // 页面跳转
+                  location.href = "/login";
+                } else {
+                  self.error = data.msg;
+                }
+              } else {
+                self.error = `服务器出错，错误码:${status}`;
+              }
+              setTimeout(function() {
+                self.error = "";
+              }, 1500);
+            });
+        }
+      });
+    }
   }
 };
 </script>

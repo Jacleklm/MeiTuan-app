@@ -42,7 +42,15 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios'
   ],
+  /*
+  ** Axios module configuration
+  */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
   /*
   ** Build configuration
   */

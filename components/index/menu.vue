@@ -5,7 +5,7 @@
       @mouseleave="mouseleave">
       <dt><strong>全部分类</strong> </dt>
       <dd
-        v-for="(item, index) in menu"
+        v-for="(item, index) in $store.state.home.menu"
         :key="index" @mouseenter="enter">
         <!-- 这个菜单传递的数据用type来表示前面的小图标更加便捷，而不是我本来想的传个图标的url -->
         <i :class="item.type"/>{{item.name}}<span class="arrow"></span>
@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       kind: '',
+      // 这个menu只是练习用，用了Vuex的数据后这个变量没用了
       menu: [{
         type: 'food',
         name: '美食',
@@ -58,7 +59,7 @@ export default {
   },
   computed: {
     curdetail: function() {
-      return this.menu.filter((item) => item.type===this.kind)[0]
+      return this.$store.state.home.menu.filter(item => item.type===this.kind)[0]
     }
   },
   methods:{
