@@ -52,6 +52,7 @@ export const actions = {
         city: app.store.state.geo.position.city.replace('市', '')
       }
     })
+    console.log(app.store.state.geo.position.city.replace('市', ''), 88888)
     commit('home/setHotPlace', status3 === 200 ? result : [])
   }
 }

@@ -95,12 +95,12 @@ export default {
     // 点击后应该是 更改所在城市（Vuex中）+ 页面跳转。由于数据结构方面的问题，这个更改当前所在城市先忽略不计。
     // 并且似乎是每一次刷新页面都会按ip地址去得到当前地址更新到Vuex中
     handleSelect: function(item) {
-      // console.log(this.$store.state.geo.position);
+      console.log(this.$store.state.geo.position);
       // console.log(this.$store.state.geo.position.city);
       // this.setPosition(item.value);
 
       // window.location.href = "/";
-      this.$router.push("/");
+      // this.$router.push("/");
     },
     ...mapMutations("geo", ["setPosition"])
   }

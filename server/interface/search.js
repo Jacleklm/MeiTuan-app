@@ -52,7 +52,7 @@ router.get('/hotPlace', async (ctx) => {
   //     city,
   //     type: ctx.query.type || '景点'
   //   }).limit(10)
-  
+
   //   ctx.body = {
   //     code: 0,
   //     result: result.map(item => {
@@ -78,7 +78,7 @@ router.get('/hotPlace', async (ctx) => {
   } } = await axios.get(`http://cp-tools.cn/search/hotPlace`, {
     params: {
       // sign,
-      city: encodeURIComponent(city)
+      city
     }
   })
   ctx.body = {

@@ -23,13 +23,14 @@
           <!-- 这里是focus后搜索框出现的部分和输入后出现的推荐部分 -->
           <dl v-if="isHotPlace" class="hotPlace">
             <dt>热门搜索</dt>
-            <dd
-              v-for="(item, index) in $store.state.home.hotPlace.slice(0,5)"
-              :key="index"
-            >{{ item.name }}</dd>
+            <dd v-for="(item, index) in $store.state.home.hotPlace.slice(0,4)" :key="index">
+              <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
+            </dd>
           </dl>
           <dl v-if="isSearchList" class="searchList">
-            <dd v-for="(item, index) in searchList" :key="index">{{ item.name }}</dd>
+            <dd v-for="(item, index) in searchList" :key="index">
+              <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
+            </dd>
           </dl>
         </div>
         <!-- 这里是搜索框正下方的推荐部分 -->
@@ -37,7 +38,7 @@
           <a
             v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)"
             :key="idx"
-            href="#"
+            :href="'/products?keyword='+encodeURIComponent(item.name)"
           >{{ item.name }}</a>
         </p>
         <ul class="nav">
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import _ from "lodash";
 export default {
   data() {
@@ -87,7 +89,7 @@ export default {
       this.isFocus = true;
     },
     blur: function() {
-      // 如果一失去焦点就 this.isFocus =false ，则在点击推荐内容的同时推荐内容会消失，页面无法跳转
+      // 如果一失去焦点就 this.isFocus = false ，则在点击推荐内容的同时推荐内容会消失，页面无法跳转
       let self = this;
       setTimeout(function() {
         self.isFocus = false;
