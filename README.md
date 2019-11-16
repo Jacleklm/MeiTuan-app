@@ -1,6 +1,6 @@
 # MeiTuan-app
 
->  一个基于`Nuxt`的仿制[美团网](https://bj.meituan.com/?pcstyle=1&cevent=imt%2Fft%2Fpc)的练习项目。由慕课网的 Vue全家桶+SSR+Koa2全栈开发美团网 课程学习后做的项目
+>  一个基于`Nuxt`的仿制[美团网](https://bj.meituan.com/?pcstyle=1&cevent=imt%2Fft%2Fpc)的练习项目。由[慕课网的 Vue全家桶+SSR+Koa2全栈开发美团网](https://coding.imooc.com/class/280.html) 课程学习后做的项目
 
 ## 项目截图
 #### 首页
