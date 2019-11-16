@@ -18,9 +18,9 @@ module.exports = {
     get user() {
       return 'www.jia10107@qq.com'
     },
-    // 这个是生成的授权码，不能分享给别人
+    // 这个是生成的授权码，不能分享给别人。所以这里就乱写了
     get pass() {
-      return 'emdkcmonmbqjbdeg'
+      return 'xxxxxxxxxxx'
     },
     // 生成4个随机字符串作为验证码。toString(16)是转换为16进制
     get code() {
