@@ -12,7 +12,7 @@
       </dd>
     </dl>
     <dl class="classic">
-      <dt>分类</dt>
+      <dt>区域</dt>
       <dt>全部</dt>
       <dd
         v-for="(item,idx) in areas"
